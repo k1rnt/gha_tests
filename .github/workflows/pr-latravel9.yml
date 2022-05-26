@@ -37,5 +37,5 @@ jobs:
           title: Laravel9 Patch ( ${{ steps.branch-name.outputs.current_branch }} )
           body: Laravel9 Patch for branch is ${{ steps.branch-name.outputs.current_branch }}
           draft: false
-          base: ${{ steps.branch-name.outputs.base_branch }}
+          base: feature/laravel-9
 
