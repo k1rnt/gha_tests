@@ -32,10 +32,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: inc package patch-${{ steps.branch-name.outputs.current_branch }} version
           signoff: false
-          branch: feature/laravel-9
+          branch: ${{ steps.branch-name.outputs.current_branch }}
           delete-branch: true
           title: Laravel9 Patch ( ${{ steps.branch-name.outputs.current_branch }} )
           body: Laravel9 Patch for branch is ${{ steps.branch-name.outputs.current_branch }}
           draft: false
-          base: ${{ steps.branch-name.outputs.current_branch }}
+          base: ${{ steps.branch-name.outputs.base_branch }}
 
