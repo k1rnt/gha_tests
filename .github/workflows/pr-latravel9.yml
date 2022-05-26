@@ -15,8 +15,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - name: check if pr exists
+        id: check-if-pr-exists
+        run: |
+          pr_title=${{ github.ref == 'main' }}
+          base_branch=${{ github.ref == 'refs/heads/feature/laravel-9' }}
+          echo "::set-output name=count::$(gh pr list -S ${pr_title}' in::title' -B $base_branch | wc -l)"
+          echo "::set-output name=pr_title::$pr_title"
+          echo "::set-output name=base_branch::$base_branch"
 
       - name: create laravel-9 pr
+        if: ${{ steps.check-if-pr-exists.outputs.count == 0 }}
         id: create-pr
         run: |
           gh pr create -B feature/laravel-9 -t "Patch laravel9 $(date +'%Y-%m-%d-%H:%M:%S')" -b ""
