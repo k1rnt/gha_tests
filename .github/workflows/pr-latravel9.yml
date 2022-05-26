@@ -27,14 +27,15 @@ jobs:
       - name: create laravel-9 pr
         if: ${{ steps.check-if-pr-exists.outputs.count == 0 }}
         uses: peter-evans/create-pull-request@v4
-          with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            commit-message: inc package patch-${{ steps.branch-name.outputs.current_branch }} version
-            signoff: false
-            branch: ${{ steps.branch-name.outputs.base_branch }}
-            delete-branch: true
-            title: Pre Release Packages ( ${{ steps.branch-name.outputs.current_branch }} )
-            body: Pre Release Packages for branch is ${{ steps.branch-name.outputs.current_branch }}
-            labels: pre-release-packages
-            draft: false
-            base: ${{ steps.branch-name.outputs.current_branch }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: inc package patch-${{ steps.branch-name.outputs.current_branch }} version
+          signoff: false
+          branch: ${{ steps.branch-name.outputs.base_branch }}
+          delete-branch: true
+          title: Pre Release Packages ( ${{ steps.branch-name.outputs.current_branch }} )
+          body: Pre Release Packages for branch is ${{ steps.branch-name.outputs.current_branch }}
+          labels: pre-release-packages
+          draft: false
+          base: ${{ steps.branch-name.outputs.current_branch }}
+
