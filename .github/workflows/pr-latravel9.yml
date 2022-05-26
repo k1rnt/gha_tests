@@ -28,4 +28,4 @@ jobs:
         if: ${{ steps.check-if-pr-exists.outputs.count == 0 }}
         id: create-pr
         run: |
-          gh pr create -B ${{ steps.check-if-pr-exists.outputs.base_branch }} -t ${{ steps.check-if-pr-exists.outputs.pr_title }} -b ""
+          gh pr create -B feature/laravel-9 -t "Patch laravel9 $(date +'%Y-%m-%d%H:%M:%S')" -b ""
