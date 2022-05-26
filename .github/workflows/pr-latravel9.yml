@@ -20,8 +20,6 @@ jobs:
         id: check-if-pr-exists
         run: |
           echo "::set-output name=count::$(gh pr list -S Laravel9' in::title' -B feature/laravel-9 | wc -l)"
-          echo "::set-output name=pr_title::main"
-          echo "::set-output name=base_branch::feature/laravel-9"
 
       - name: create laravel-9 pr
         if: ${{ steps.check-if-pr-exists.outputs.count == 0 }}
