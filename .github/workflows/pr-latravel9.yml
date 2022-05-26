@@ -8,7 +8,7 @@ jobs:
   create-pr-laravel9:
 
     env:
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     runs-on: ubuntu-latest
 
@@ -26,6 +26,15 @@ jobs:
 
       - name: create laravel-9 pr
         if: ${{ steps.check-if-pr-exists.outputs.count == 0 }}
-        run: |
-          gh pr create -B ${{ steps.check-if-pr-exists.outputs.base_branch }} -t ${{ steps.check-if-pr-exists.outputs.pr_title }} -b ""
-
+	uses: peter-evans/create-pull-request@v4
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            commit-message: inc package patch-${{ steps.branch-name.outputs.current_branch }} version
+            signoff: false
+            branch: ${{ steps.branch-name.outputs.base_branch }}
+            delete-branch: true
+            title: Pre Release Packages ( ${{ steps.branch-name.outputs.current_branch }} )
+            body: Pre Release Packages for branch is ${{ steps.branch-name.outputs.current_branch }}
+            labels: pre-release-packages
+            draft: false
+            base: ${{ steps.branch-name.outputs.current_branch }}
