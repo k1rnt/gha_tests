@@ -1,5 +1,5 @@
 # gha_tests
 
 ## wolkflow-dispatch
-`export GITHUB_TOKEN=${GITHUB_TOKEN}`
-`sh ./wolkflow-trigger.curl`
+1. `export GITHUB_TOKEN=${GITHUB_TOKEN}`  
+2. `sh ./wolkflow-trigger.curl`
