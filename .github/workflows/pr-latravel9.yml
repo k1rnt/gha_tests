@@ -15,14 +15,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: check if pr exists
         id: check-if-pr-exists
         run: |
-          echo "::set-output name=count::$(gh pr list -S Laravel9' in::title' -B feature/laravel-9 | wc -l)"
-
+          echo "::set-output name=count::$(gh pr list -S "Patch Laravel9"' in::title' -B feature/laravel-9 | wc -l)"
       - name: create laravel-9 pr
         if: ${{ steps.check-if-pr-exists.outputs.count == 0 }}
         id: create-pr
         run: |
-          gh pr create -B feature/laravel-9 -t "Patch Laravel9 $(date +'%Y-%m-%d-%H:%M:%S')" -b ""
+          echo "::set-output name=pr_url::$(gh pr create -B feature/laravel-9 -t "Patch Laravel9" -b "")"
+      - name: merge pr patch laravel9
+        if: ${{ steps.check-if-pr-exists.outputs.count > 0 }}
+        id: merge-pr
+        run: |
+          gh pr merge ${{steps.create-pr.outputs.pr_url}} --merge --admin
