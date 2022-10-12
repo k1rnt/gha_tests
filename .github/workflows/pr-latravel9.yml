@@ -19,12 +19,12 @@ jobs:
       - name: check if pr exists
         id: check-if-pr-exists
         run: |
-          echo "count=$(gh pr list -S "Patch Laravel9"' in::title' -B feature/laravel-9 | wc -l) > $GITHUB_OUTPUT"
+          echo "count=$(gh pr list -S "Patch Laravel9"' in::title' -B feature/laravel-9 | wc -l) >> $GITHUB_OUTPUT"
       - name: create laravel-9 pr
         if: ${{ steps.check-if-pr-exists.outputs.count == 0 }}
         id: create-pr
         run: |
-          echo "pr_url=$(gh pr create -B feature/laravel-9 -t "Patch Laravel9" -b "") > $GITHUB_OUTPUT"
+          echo "pr_url=$(gh pr create -B feature/laravel-9 -t "Patch Laravel9" -b "") >> $GITHUB_OUTPUT"
       - name: merge pr patch laravel9
         id: merge-pr
         run: |
